@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { TaskSchema } from 'src/shemas/task.shema';
 
 @Controller('task')
 export class TaskController {
