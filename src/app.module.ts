@@ -4,10 +4,10 @@ import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
-    TaskModule,
     MongooseModule.forRoot(
-      'mongodb+srv://admin:choco44moco@cluster0.qbowpfe.mongodb.net/?retryWrites=true&w=majority',
+      'mongodb+srv://admin:choco44moco@cluster0.qbowpfe.mongodb.net/data?retryWrites=true&w=majority',
     ),
+    TaskModule,
   ],
 })
 export class AppModule {}

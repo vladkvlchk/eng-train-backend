@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from 'mongoose';
 
 export type TaskDocument = Task & Document;
 
@@ -12,7 +13,15 @@ export class Task{
     question: string
 
     @Prop({ required: true })
-    options: string[]
+    options: [{
+        text: string,
+        veracity: boolean
+    }]
+
+    @Prop({ required: true })
+    rating: number
+
+
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task)
