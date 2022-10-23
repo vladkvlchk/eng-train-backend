@@ -1,4 +1,4 @@
-import { IsBoolean, IsString, MinLength } from 'class-validator';
+import { IsNumber, IsString, MinLength } from 'class-validator';
 
 export class CreateTaskDto {
   @IsString()
@@ -11,5 +11,7 @@ export class CreateTaskDto {
       veracity: boolean;
     },
   ];
+
+  @IsNumber()
   readonly rating: number;
 }

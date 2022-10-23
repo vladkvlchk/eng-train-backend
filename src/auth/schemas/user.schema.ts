@@ -4,7 +4,6 @@ export type UserDocument = User & Document
 
 @Schema()
 export class User{
-
     @Prop({required: true, unique: true})
     email: string
 
@@ -13,12 +12,6 @@ export class User{
 
     @Prop({required: true})
     username: string
-
-    @Prop({required: true})
-    firstName: string
-
-    @Prop()
-    lastName: string
 
     @Prop({required: true, ref: 'Role'})
     roles: [{}]
