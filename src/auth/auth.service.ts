@@ -14,18 +14,20 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async createUser({ username, email, password }): Promise<any> {
+  async createUser({ firstName, lastName, email, password }): Promise<any> {
     try {
-      const candidate = await this.userModel.findOne({ username });
+      const candidate = await this.userModel.findOne({ email });
       if (candidate) {
         throw new Error('This user already exists');
       }
 
       const hashPassword = bcrypt.hashSync(password, 8);
       const userRole = await this.roleModel.findOne({ value: 'USER' });
+      lastName = lastName ? lastName : ''
 
       await this.userModel.create({
-        username,
+        firstName,
+        lastName,
         email,
         password: hashPassword,
         roles: [userRole.value],
@@ -36,18 +38,18 @@ export class AuthService {
     }
   }
 
-  async login({ username, password }): Promise<any> {
+  async login({ email, password }): Promise<any> {
     try {
-      const user = await this.userModel.findOne({ username });
+      const user = await this.userModel.findOne({ email });
       if (!user) {
-        throw new Error(`User ${username} not found`);
+        throw new Error(`User not found`);
       }
       const validPassword = bcrypt.compareSync(password, user.password);
       if (!validPassword) {
         throw new Error('Incorrect password');
       }
 
-      const payload = { username: user.username, roles: user.roles };
+      const payload = { email: user.email, roles: user.roles };
       return {
         access_token: this.jwtService.sign(payload),
       };
