@@ -32,7 +32,7 @@ export class AuthService {
         password: hashPassword,
         roles: [userRole.value],
       });
-      // return { message: 'The user has been successfully registered' };
+
       const payload = { email, roles: userRole };
       return {
         access_token: this.jwtService.sign(payload),
