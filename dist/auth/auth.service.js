@@ -33,7 +33,7 @@ let AuthService = class AuthService {
                 throw new Error('This user already exists');
             }
             const hashPassword = bcrypt.hashSync(password, 8);
-            const userRole = await this.roleModel.findOne({ value: 'USER' });
+            const userRole = await this.roleModel.findOne({ value: 'STUDENT' });
             lastName = lastName ? lastName : '';
             await this.userModel.create({
                 firstName,
@@ -42,7 +42,10 @@ let AuthService = class AuthService {
                 password: hashPassword,
                 roles: [userRole.value],
             });
-            return { message: 'The user has been successfully registered' };
+            const payload = { email, roles: userRole };
+            return {
+                access_token: this.jwtService.sign(payload),
+            };
         }
         catch (error) {
             return { message: error.message };

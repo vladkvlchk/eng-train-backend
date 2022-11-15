@@ -22,7 +22,7 @@ export class AuthService {
       }
 
       const hashPassword = bcrypt.hashSync(password, 8);
-      const userRole = await this.roleModel.findOne({ value: 'USER' });
+      const userRole = await this.roleModel.findOne({ value: 'STUDENT' });
       lastName = lastName ? lastName : ''
 
       await this.userModel.create({
@@ -32,7 +32,11 @@ export class AuthService {
         password: hashPassword,
         roles: [userRole.value],
       });
-      return { message: 'The user has been successfully registered' };
+      // return { message: 'The user has been successfully registered' };
+      const payload = { email, roles: userRole };
+      return {
+        access_token: this.jwtService.sign(payload),
+      };
     } catch (error) {
       return { message: error.message };
     }

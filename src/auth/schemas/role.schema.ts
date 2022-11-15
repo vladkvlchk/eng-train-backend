@@ -5,7 +5,7 @@ export type RoleDocument = Role & Document;
 
 @Schema()
 export class Role{
-    @Prop({unique: true, default: 'USER'})
+    @Prop({unique: true, default: 'STUDENT'})
     value: string
 }
 

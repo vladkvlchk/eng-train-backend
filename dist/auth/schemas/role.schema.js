@@ -14,7 +14,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 let Role = class Role {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ unique: true, default: 'USER' }),
+    (0, mongoose_1.Prop)({ unique: true, default: 'STUDENT' }),
     __metadata("design:type", String)
 ], Role.prototype, "value", void 0);
 Role = __decorate([
